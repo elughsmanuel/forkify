@@ -163,9 +163,9 @@ elements.shopping.addEventListener('click', e => {
 /////////////////////////////////////////////////
 // LIKE CONTROLLER
 
-// TESTING
-state.likes = new Likes();
-likesView.toggleLikedMenu(state.likes.getNumLikes());
+// // TESTING
+// state.likes = new Likes();
+// likesView.toggleLikedMenu(state.likes.getNumLikes());
 
 const controlLike = () => {
     if(!state.likes) state.likes = new Likes();
@@ -201,6 +201,21 @@ const controlLike = () => {
     }
     likesView.toggleLikedMenu(state.likes.getNumLikes());
 };
+
+
+// Restore liked recipes on page load
+window.addEventListener('load', () => {
+    state.likes = new Likes();
+
+    // Restore likes
+    state.likes.readStorage();
+
+    // Toggle like menu button
+    likesView.toggleLikedMenu(state.likes.getNumLikes());
+
+    // REnder the existing likes
+    state.likes.likes.forEach(like => likesView.renderLike(like));
+});
 
 
 // Handling recipe button clicks
